@@ -1,0 +1,38 @@
+{
+	"name": "kdabrow/seeder-once",
+	"description": "Run your laravel seeders only once",
+	"type": "package",
+	"keywords": [
+		"php file"
+	],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Karol Dąbrowski",
+			"email": "karol_dabrowski@interia.eu",
+			"homepage": "http://kdabrow.com"
+		}
+	],
+	"require": {
+		"php": ">= 7.3"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^8.5",
+		"mockery/mockery": "^1.3",
+		"symfony/var-dumper": "^5.0",
+		"phpmetrics/phpmetrics": "^2.5",
+		"friendsofphp/php-cs-fixer": "^2.16",
+		"phpmd/phpmd": "@stable",
+		"squizlabs/php_codesniffer": "3.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Kdabrow\\SeederOnce\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Kdabrow\\SeederOnce\\Tests\\": "tests"
+		}
+	}
+}

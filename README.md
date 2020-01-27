@@ -1,2 +1,4 @@
 # seeder-once
-Run your seeders only once
+Run your larvel seeders only once.
+
+This package is under development.
