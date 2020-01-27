@@ -35,5 +35,12 @@
 		"psr-4": {
 			"Kdabrow\\SeederOnce\\Tests\\": "tests"
 		}
+	},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Kdabrow\\SeederOnce\\Providers\\SeederOnceProvider"
+			]
+		}
 	}
 }
