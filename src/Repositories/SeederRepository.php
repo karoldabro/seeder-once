@@ -2,17 +2,38 @@
 
 namespace Kdabrow\SeederOnce\Repositories;
 
+use Illuminate\Support\Collection;
+use Kdabrow\SeederOnce\Tests\NotImplementedException;
 use Kdabrow\SeederOnce\Contracts\SeederRepositoryInterface;
+use Kdabrow\SeederOnce\Seeder;
 
 class SeederRepository implements SeederRepositoryInterface
 {
     public function add(string $seederName): bool
     {
+        $seeder = new Seeder();
+        $seeder->seeder = $seederName;
+        return $seeder->save();
     }
 
-    public function all(): Collection;
+    public function all(): Collection
+    {
+        throw new NotImplementedException();
 
-    public function rollback(): bool;
+        return new Collection();
+    }
 
-    public function wipe(): bool;
+    public function rollback(): bool
+    {
+        throw new NotImplementedException();
+
+        return true;
+    }
+
+    public function wipe(): bool
+    {
+        throw new NotImplementedException();
+
+        return true;
+    }
 }
