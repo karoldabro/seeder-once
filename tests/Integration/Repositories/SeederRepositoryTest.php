@@ -5,7 +5,7 @@ namespace Kdabrow\SeederOnce\Tests\Integration\Repositories;
 use Illuminate\Support\Collection;
 use Kdabrow\SeederOnce\Contracts\SeederRepositoryInterface;
 use Kdabrow\SeederOnce\Repositories\SeederRepository;
-use Kdabrow\SeederOnce\Seeder;
+use Kdabrow\SeederOnce\Models\Seeder;
 use Kdabrow\SeederOnce\Tests\TestCase;
 
 class SeederRepositoryTest extends TestCase

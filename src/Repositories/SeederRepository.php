@@ -5,7 +5,7 @@ namespace Kdabrow\SeederOnce\Repositories;
 use Illuminate\Support\Collection;
 use Kdabrow\SeederOnce\Tests\NotImplementedException;
 use Kdabrow\SeederOnce\Contracts\SeederRepositoryInterface;
-use Kdabrow\SeederOnce\Seeder;
+use Kdabrow\SeederOnce\Models\Seeder;
 
 class SeederRepository implements SeederRepositoryInterface
 {

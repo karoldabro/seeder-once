@@ -1,6 +1,6 @@
 <?php
 
-namespace Kdabrow\SeederOnce;
+namespace Kdabrow\SeederOnce\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
