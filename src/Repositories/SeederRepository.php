@@ -13,14 +13,15 @@ class SeederRepository implements SeederRepositoryInterface
     {
         $seeder = new Seeder();
         $seeder->seeder = $seederName;
+
         return $seeder->save();
     }
 
     public function all(): Collection
     {
-        throw new NotImplementedException();
+        $result = Seeder::all();
 
-        return new Collection();
+        return $result->toBase();
     }
 
     public function rollback(): bool
