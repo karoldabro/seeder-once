@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Kdabrow\SeederOnce\Commands\SeedOnceCommand;
 use Kdabrow\SeederOnce\Contracts\SeederRepositoryInterface;
 use Kdabrow\SeederOnce\Repositories\SeederRepository;
+use Kdabrow\SeederOnce\Seeder;
 
 class SeederOnceProvider extends ServiceProvider
 {
