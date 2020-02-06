@@ -7,7 +7,6 @@ use InvalidArgumentException;
 use Kdabrow\SeederOnce\Tests\TestCase;
 use Kdabrow\SeederOnce\Tests\Unit\Mocks\WithRunMethodSeederMock;
 use Kdabrow\SeederOnce\Tests\Unit\Mocks\WithoutMethodsSeederMock;
-use Kdabrow\SeederOnce\Tests\Unit\Mocks\WithBothMethodsSeederMock;
 use Kdabrow\SeederOnce\Tests\Unit\Mocks\WithRunOnceMethodSeederMock;
 
 class SeederTraitTest extends TestCase
@@ -33,21 +32,5 @@ class SeederTraitTest extends TestCase
         $seeder = new WithRunMethodSeederMock();
 
         $this->assertTrue($seeder());
-    }
-
-    public function test_if_methods_run_and_run_once_can_be_called_at_the_same_seedeer()
-    {
-        $mock = $this->getMockBuilder(WithBothMethodsSeederMock::class)
-            ->enableProxyingToOriginalMethods()
-            ->enableAutoload()
-            ->getMock();
-
-        $mock->method('run')
-            ->willReturn(true);
-
-        $mock->method('run')
-            ->willReturn(true);
-
-        $mock();
     }
 }

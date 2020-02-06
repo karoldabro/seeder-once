@@ -4,7 +4,7 @@ namespace Kdabrow\SeederOnce\Commands;
 
 use Illuminate\Console\Command;
 
-class SeedOnceCommand extends Command
+class OnceCommand extends Command
 {
     /**
      * The name and signature of the console command.
