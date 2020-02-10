@@ -13,7 +13,9 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'db:install';
+    protected $signature = 'db:install
+        {--database= : The database connection to use}
+    ';
 
     /**
      * The console command description.
@@ -47,18 +49,12 @@ class InstallCommand extends Command
     public function handle()
     {
         $this->seederRepository->setConnection($this->input->getOption('database'));
-        $this->seederRepository->createTable();
-    }
+        if ($this->seederRepository->existsTable()) {
+            return $this->info("Table with seeders already exists");
+        }
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use'],
-        ];
+        $this->seederRepository->createTable();
+
+        $this->info("Seeders table has been created successfully.");
     }
 }

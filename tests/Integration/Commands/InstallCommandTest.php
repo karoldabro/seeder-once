@@ -9,10 +9,18 @@ class InstallCommandTest extends TestCase
 {
     public function test_if_command_install_creates_table_in_database()
     {
-        $this->artisan('db:install', [
-            '--database' => 'testing'
-        ]);
+        $this->artisan('db:install')
+            ->expectsOutput("Seeders table has been created successfully.");
 
         $this->assertTrue(Schema::hasTable(\config('seederonce.table_name')));
+    }
+
+    public function test_if_creating_second_time_will_not_be_executed()
+    {
+        $this->artisan('db:install')
+            ->expectsOutput("Seeders table has been created successfully.");
+
+        $this->artisan('db:install')
+            ->expectsOutput("Table with seeders already exists");
     }
 }
