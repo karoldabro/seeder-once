@@ -4,7 +4,7 @@ namespace Kdabrow\SeederOnce\Commands;
 
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
-use Kdabrow\SeederOnce\Contracts\SeederRepositoryInterface;
+use Kdabrow\SeederOnce\Contracts\FilesLogRepositoryInterface;
 
 class InstallCommand extends Command
 {
@@ -23,7 +23,7 @@ class InstallCommand extends Command
     protected $description = 'Creates seeds table';
 
     /**
-     * @var SeederRepositoryInterface
+     * @var FilesLogRepositoryInterface
      */
     private $seederRepository;
 
@@ -32,7 +32,7 @@ class InstallCommand extends Command
      *
      * @return void
      */
-    public function __construct(SeederRepositoryInterface $seederRepository)
+    public function __construct(FilesLogRepositoryInterface $seederRepository)
     {
         parent::__construct();
 

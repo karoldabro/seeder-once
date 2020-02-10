@@ -4,18 +4,35 @@ namespace Kdabrow\SeederOnce\Contracts;
 
 use Illuminate\Support\Collection;
 
-interface SeederRepositoryInterface
+interface FilesLogRepositoryInterface
 {
-    public function add(string $seederName, int $hash): bool;
+    /**
+     * Adds logs data
+     *
+     * @param string $fileName
+     * @param integer $hash
+     *
+     * @return boolean
+     */
+    public function add(string $fileName, int $hash): bool;
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function all(): Collection;
 
-    public function rollback(): bool;
-
-    public function wipe(): bool;
-
+    /**
+     * Creates log file table
+     *
+     * @return void
+     */
     public function createTable();
 
+    /**
+     * Checks if log file table exists
+     *
+     * @return boolean
+     */
     public function existsTable(): bool;
 
     /**

@@ -4,14 +4,12 @@ namespace Kdabrow\SeederOnce\Repositories;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Kdabrow\SeederOnce\Models\Seeder;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
-use Kdabrow\SeederOnce\Tests\NotImplementedException;
-use Kdabrow\SeederOnce\Contracts\SeederRepositoryInterface;
+use Kdabrow\SeederOnce\Contracts\FilesLogRepositoryInterface;
 
-class SeederRepository implements SeederRepositoryInterface
+class SeederRepository implements FilesLogRepositoryInterface
 {
 
     /**
@@ -48,57 +46,6 @@ class SeederRepository implements SeederRepositoryInterface
         $this->resolver = $resolver;
     }
 
-    public function add(string $seederName, int $hash): bool
-    {
-        $table = $this->table();
-
-        return $table->insert([
-            'name' => $seederName,
-            'hash' => $hash,
-            'seeded_at' => Carbon::now()
-        ]);
-    }
-
-    public function all(): Collection
-    {
-        $table = $this->table();
-
-        return collect($table->get());
-    }
-
-    public function rollback(): bool
-    {
-        throw new NotImplementedException();
-
-        return true;
-    }
-
-    public function wipe(): bool
-    {
-        throw new NotImplementedException();
-
-        return true;
-    }
-
-    public function createTable()
-    {
-        $schema = $this->getConnection()->getSchemaBuilder();
-
-        $schema->create(Config::get('seederonce.table_name'), function (Blueprint $blueprint) {
-            $blueprint->increments('id');
-            $blueprint->string('name');
-            $blueprint->integer('hash');
-            $blueprint->dateTime('seeded_at');
-        });
-    }
-
-    public function existsTable(): bool
-    {
-        $schema = $this->getConnection()->getSchemaBuilder();
-
-        return $schema->hasTable(Config::get('seederonce.table_name'));
-    }
-
     /**
      * Get a query builder for the migration table.
      *
@@ -131,5 +78,60 @@ class SeederRepository implements SeederRepositoryInterface
 
     public function setSource($name)
     {
+    }
+
+    /**
+     * ---------
+     * Interface
+     * ---------
+     */
+
+    /**
+     * @inheritDoc
+     */
+    public function add(string $fileName, int $hash): bool
+    {
+        $table = $this->table();
+
+        return $table->insert([
+            'name' => $fileName,
+            'hash' => $hash,
+            'created_at' => Carbon::now()
+        ]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function all(): Collection
+    {
+        $table = $this->table();
+
+        return collect($table->get());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createTable()
+    {
+        $schema = $this->getConnection()->getSchemaBuilder();
+
+        $schema->create(Config::get('seederonce.table_name'), function (Blueprint $blueprint) {
+            $blueprint->increments('id');
+            $blueprint->string('name');
+            $blueprint->integer('hash');
+            $blueprint->dateTime('created_at');
+        });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function existsTable(): bool
+    {
+        $schema = $this->getConnection()->getSchemaBuilder();
+
+        return $schema->hasTable(Config::get('seederonce.table_name'));
     }
 }
