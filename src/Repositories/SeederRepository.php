@@ -76,8 +76,16 @@ class SeederRepository implements FilesLogRepositoryInterface
         return $this->resolver->connection($this->connection);
     }
 
-    public function setSource($name)
+    /**
+     * Database connection name
+     *
+     * @param string $name
+     *
+     * @return void
+     */
+    public function setConnection($name)
     {
+        $this->connection = $name;
     }
 
     /**

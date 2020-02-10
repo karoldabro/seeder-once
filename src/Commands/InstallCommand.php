@@ -46,7 +46,7 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->seederRepository->setSource($this->input->getOption('database'));
+        $this->seederRepository->setConnection($this->input->getOption('database'));
         $this->seederRepository->createTable();
     }
 

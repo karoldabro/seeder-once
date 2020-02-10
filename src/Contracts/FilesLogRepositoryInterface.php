@@ -41,5 +41,5 @@ interface FilesLogRepositoryInterface
      * @param  string  $name
      * @return void
      */
-    public function setSource($name);
+    public function setConnection($name);
 }

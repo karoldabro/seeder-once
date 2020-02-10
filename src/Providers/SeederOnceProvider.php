@@ -3,6 +3,7 @@
 namespace Kdabrow\SeederOnce\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Kdabrow\SeederOnce\Commands\InstallCommand;
 use Kdabrow\SeederOnce\Commands\OnceCommand;
 use Kdabrow\SeederOnce\Contracts\FilesLogRepositoryInterface;
 use Kdabrow\SeederOnce\Repositories\SeederRepository;
@@ -28,7 +29,8 @@ class SeederOnceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                OnceCommand::class
+                InstallCommand::class,
+                OnceCommand::class,
             ]);
         }
     }
