@@ -9,6 +9,11 @@ use Kdabrow\SeederOnce\Tests\TestCase;
 
 class SeederRepositoryTest extends TestCase
 {
+    /**
+     * @var SeederOnceRepositoryInterface
+     */
+    private $repository;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -85,6 +90,19 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_method_is_done_will_return_true_when_seed_is_in_db()
     {
-        
+        $this->repository->createTable();
+
+        $this->repository->add("seeder_name");
+
+        $this->assertTrue($this->repository->isDone("seeder_name"));
+    }
+
+    public function test_if_method_is_done_will_return_false_is_seed_was_not_done()
+    {
+        $this->repository->createTable();
+
+        $this->repository->add("seeder_name");
+
+        $this->assertFalse($this->repository->isDone("seeder_name_2"));
     }
 }

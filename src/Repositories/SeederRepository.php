@@ -96,7 +96,11 @@ class SeederRepository implements SeederOnceRepositoryInterface
 
     public function isDone(string $fileName): bool
     {
-        return true;
+        return !$this->table()
+            ->select('*')
+            ->where('name', '=', $fileName)
+            ->get()
+            ->isEmpty();
     }
 
     /**
