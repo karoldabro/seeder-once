@@ -2,10 +2,13 @@
 
 namespace Kdabrow\SeederOnce\Tests\Integration;
 
-use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
-use Kdabrow\SeederOnce\Exceptions\SeederOnceException;
-use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMock;
 use Kdabrow\SeederOnce\Tests\TestCase;
+use Kdabrow\SeederOnce\Exceptions\SeederOnceException;
+use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
+use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMock;
+use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederNotUsingSeederOnceMock;
+use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederNotUsingSeederOnceMockCallOther;
+use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMockCallOther;
 
 class SeederOnceTest extends TestCase
 {
@@ -42,5 +45,96 @@ class SeederOnceTest extends TestCase
     {
         $repository = resolve(SeederOnceRepositoryInterface::class);
         $repository->createTable();
+    }
+
+    public function test_if_seeder_normal_will_behave_as_usual()
+    {
+        $this->createTable();
+
+        $mockClassWith = resolve(SeederUsingSeederOnceMock::class);
+
+        $mockClassWith->__invoke();
+
+        $mockClassWithout = resolve(SeederNotUsingSeederOnceMock::class);
+
+        $this->assertTrue($mockClassWithout->__invoke());
+
+        $this->assertTrue($mockClassWithout->__invoke());
+
+        $this->assertTrue($mockClassWithout->__invoke());
+    }
+
+    public function test_if_seeder_once_can_not_call_many_times_other_seeders()
+    {
+        $this->createTable();
+
+        $mockClassWithCall = resolve(SeederUsingSeederOnceMockCallOther::class);
+
+        $this->assertTrue($mockClassWithCall->__invoke());
+
+        $this->assertNull($mockClassWithCall->__invoke());
+    }
+
+    public function test_if_internal_called_seeders_once_can_not_be_called_again()
+    {
+        $this->createTable();
+
+        $mockClassWithCall = resolve(SeederUsingSeederOnceMockCallOther::class);
+
+        $mockClassWithCall->__invoke();
+
+        $mockClassWith = resolve(SeederUsingSeederOnceMock::class);
+
+        $this->assertNull($mockClassWith->__invoke());
+    }
+
+    public function test_if_internal_called_seeders_normal_can_be_called_again()
+    {
+        $this->createTable();
+
+        $mockClassWithCall = resolve(SeederUsingSeederOnceMockCallOther::class);
+
+        $mockClassWithCall->__invoke();
+
+        $mockClassWithout = resolve(SeederNotUsingSeederOnceMock::class);
+
+        $this->assertTrue($mockClassWithout->__invoke());
+    }
+
+    public function test_if_seeder_with_calls_without_seeder_once_can_be_called_many_times()
+    {
+        $this->createTable();
+
+        $mockClassWithoutCall = resolve(SeederNotUsingSeederOnceMockCallOther::class);
+
+        $this->assertTrue($mockClassWithoutCall->__invoke());
+
+        $this->assertTrue($mockClassWithoutCall->__invoke());
+    }
+
+    public function test_if_seeder_normal_can_call_seeder_once_with_no_repeating()
+    {
+        $this->createTable();
+
+        $mockClassWithoutCall = resolve(SeederNotUsingSeederOnceMockCallOther::class);
+
+        $mockClassWithoutCall->__invoke();
+
+        $mockClassWith = resolve(SeederUsingSeederOnceMock::class);
+
+        $this->assertNull($mockClassWith->__invoke());
+    }
+
+    public function test_if_seeder_normal_can_call_seeder_normal_many_times()
+    {
+        $this->createTable();
+
+        $mockClassWithoutCall = resolve(SeederNotUsingSeederOnceMockCallOther::class);
+
+        $mockClassWithoutCall->__invoke();
+
+        $mockClassWithout = resolve(SeederNotUsingSeederOnceMock::class);
+
+        $this->assertTrue($mockClassWithout->__invoke());
     }
 }
