@@ -4,7 +4,7 @@ namespace Kdabrow\SeederOnce\Tests\Integration\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
-use Kdabrow\SeederOnce\Contracts\FilesLogRepositoryInterface;
+use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 use Kdabrow\SeederOnce\Tests\TestCase;
 
 class SeederRepositoryTest extends TestCase
@@ -16,14 +16,14 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_repository_implements_interface()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
 
-        $this->assertInstanceOf(FilesLogRepositoryInterface::class, $repository);
+        $this->assertInstanceOf(SeederOnceRepositoryInterface::class, $repository);
     }
 
     public function test_if_repository_creates_seeders_table()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
         $repository->createTable();
 
         $this->assertTrue(Schema::hasTable(config('seederonce.table_name')));
@@ -31,7 +31,7 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_check_of_existence_table_returns_true_when_table_exists()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
         $repository->createTable();
 
         $this->assertTrue($repository->existsTable());
@@ -39,17 +39,17 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_check_of_existence_table_returns_false_when_table_not_exists()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
 
         $this->assertFalse($repository->existsTable());
     }
 
     public function test_if_add_method_adds_to_db()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
         $repository->createTable();
 
-        $repository->add("seeder_name", 1);
+        $repository->add("seeder_name");
 
         $this->assertDatabaseHas(config('seederonce.table_name'), [
             'id' => 1,
@@ -59,7 +59,7 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_all_returns_collection()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
         $repository->createTable();
 
         $this->assertInstanceOf(Collection::class, $repository->all());
@@ -67,7 +67,7 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_all_collection_is_empty_is_table_is_empty()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
         $repository->createTable();
 
         $this->assertTrue($repository->all()->isEmpty());
@@ -75,12 +75,12 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_all_collection_has_all_data()
     {
-        $repository = resolve(FilesLogRepositoryInterface::class);
+        $repository = resolve(SeederOnceRepositoryInterface::class);
         $repository->createTable();
 
-        $repository->add("seeder_name", 1);
-        $repository->add("seeder_name_2", 1);
-        $repository->add("seeder_name_3", 1);
+        $repository->add("seeder_name");
+        $repository->add("seeder_name_2");
+        $repository->add("seeder_name_3");
 
         $all = $repository->all();
 

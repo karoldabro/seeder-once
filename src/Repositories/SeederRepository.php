@@ -7,9 +7,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
-use Kdabrow\SeederOnce\Contracts\FilesLogRepositoryInterface;
+use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 
-class SeederRepository implements FilesLogRepositoryInterface
+class SeederRepository implements SeederOnceRepositoryInterface
 {
 
     /**
@@ -94,16 +94,20 @@ class SeederRepository implements FilesLogRepositoryInterface
      * ---------
      */
 
+    public function isDone(string $fileName): bool
+    {
+        return true;
+    }
+
     /**
      * @inheritDoc
      */
-    public function add(string $fileName, int $hash): bool
+    public function add(string $fileName): bool
     {
         $table = $this->table();
 
         return $table->insert([
             'name' => $fileName,
-            'hash' => $hash,
             'created_at' => Carbon::now()
         ]);
     }
@@ -128,7 +132,6 @@ class SeederRepository implements FilesLogRepositoryInterface
         $schema->create(Config::get('seederonce.table_name'), function (Blueprint $blueprint) {
             $blueprint->increments('id');
             $blueprint->string('name');
-            $blueprint->integer('hash');
             $blueprint->dateTime('created_at');
         });
     }

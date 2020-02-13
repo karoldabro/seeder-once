@@ -5,7 +5,7 @@ namespace Kdabrow\SeederOnce\Providers;
 use Illuminate\Support\ServiceProvider;
 use Kdabrow\SeederOnce\Commands\InstallCommand;
 use Kdabrow\SeederOnce\Commands\OnceCommand;
-use Kdabrow\SeederOnce\Contracts\FilesLogRepositoryInterface;
+use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 use Kdabrow\SeederOnce\Repositories\SeederRepository;
 
 class SeederOnceProvider extends ServiceProvider
@@ -18,7 +18,7 @@ class SeederOnceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
-            FilesLogRepositoryInterface::class,
+            SeederOnceRepositoryInterface::class,
             function ($app) {
                 return new SeederRepository($app['db'], $app['config']['seederonce.table_name']);
             }
