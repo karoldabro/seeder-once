@@ -4,3 +4,5 @@ vendor
 storage/*
 !storage/.gitkeep
 .env
+Makefile
+.gitmodules
