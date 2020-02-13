@@ -4,6 +4,7 @@ namespace Kdabrow\SeederOnce;
 
 use InvalidArgumentException;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
+use Kdabrow\SeederOnce\Exceptions\SeederOnceException;
 
 trait SeederOnce
 {
@@ -20,20 +21,19 @@ trait SeederOnce
             throw new InvalidArgumentException('Method [run] missing from ' . get_class($this));
         }
 
-        $name = get_class($this);
+        $repository = $this->resolveSeederOnceRepository();
 
-        /**
-         * @var SeederOnceRepositoryInterface $repository
-         */
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-
-        if ($repository->isDone($name)) {
+        if (!$repository->existsTable()) {
+            throw new SeederOnceException("Table to log seeders do not exists. Please run: php artisan db:install");
         }
-
-        $repository->add($name, '');
 
         return isset($this->container)
             ? $this->container->call([$this, 'run'])
             : $this->run();
+    }
+
+    private function resolveSeederOnceRepository(): SeederOnceRepositoryInterface
+    {
+        return resolve(SeederOnceRepositoryInterface::class);
     }
 }
