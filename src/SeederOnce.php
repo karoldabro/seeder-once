@@ -24,12 +24,27 @@ trait SeederOnce
         $repository = $this->resolveSeederOnceRepository();
 
         if (!$repository->existsTable()) {
-            throw new SeederOnceException("Table to log seeders do not exists. Please run: php artisan db:install");
+            throw new SeederOnceException("Table to log seeders do not exists. Please run command: php artisan db:install");
         }
 
-        return isset($this->container)
+        $name = get_class($this);
+
+        if ($repository->isDone($name)) {
+
+            if (isset($this->command)) {
+                $this->command->getOutput()->writeln("<comment>Seeder:</comment> {$name} <comment>was seeded.</comment>");
+            }
+
+            return null;
+        }
+
+        $return = isset($this->container)
             ? $this->container->call([$this, 'run'])
             : $this->run();
+
+        $repository->add($name);
+
+        return $return;
     }
 
     private function resolveSeederOnceRepository(): SeederOnceRepositoryInterface

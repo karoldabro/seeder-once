@@ -11,5 +11,6 @@ class SeederUsingSeederOnceMock extends Seeder
 
     public function run()
     {
+        return true;
     }
 }
