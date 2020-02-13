@@ -9,8 +9,17 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Config;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 
+/**
+ * I didn't wrote all this class.
+ * Some parts of this class are taken from Illuminate\Database\Migrations\DatabaseMigrationRepository
+ */
 class SeederRepository implements SeederOnceRepositoryInterface
 {
+    /**
+     * ---------
+     * From Illuminate\Database\Migrations\DatabaseMigrationRepository
+     * ---------
+     */
 
     /**
      * The database connection resolver instance.
@@ -90,10 +99,13 @@ class SeederRepository implements SeederOnceRepositoryInterface
 
     /**
      * ---------
-     * Interface
+     * My interface
      * ---------
      */
 
+    /**
+     * @inheritDoc
+     */
     public function isDone(string $fileName): bool
     {
         return !$this->table()

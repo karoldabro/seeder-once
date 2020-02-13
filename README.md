@@ -1,18 +1,19 @@
 # Laravel Seeder Once
-This library allows you to run your Larvel seeders only once. No matter how many time artisan command `db:seed` will be called. Done seeds names are stored in database.
+This library allows you to run your Larvel seeders only once. <br> No matter how many times artisan command `db:seed` will be called. Done seeders will be never executed again.
 
 ## How it works
-Works similarly to migrations. First creates table in database, then logs all seeds that are using trait SeederOnce.php. Mechanism of logging data into database is heavily inspired by Laravel migration mechanism from package illuminate/database.
+Works similarly to migrations. First creates table in database, then logs all seeds that are using trait `Kdabrow\SeederOnce\SeederOnce`. In nutshell this will prevent to execute method run() if it was executed in the past. <br> Mechanism of logging data into database is heavily inspired by Laravel migration mechanism from package illuminate/database.
 
 ## How to use it
 
-### First create seeders table in database. 
+### 1. create seeders table in database. 
 Use this command:
 ``` bash
 php artisan db:intall
 ```
+If you will not do it, but use somewhere SeederOnce trait then SeederOnceException will be thrown.
 
-### Second step is to add trait SeederOnce.php to seeds that you want to be run only once. 
+### 2.Add trait SeederOnce to seeds that you want to be run only once. 
 So result should look like this:
 ```php
 use Illuminate\Database\Seeder;
@@ -33,4 +34,4 @@ class SomeSeeder extends Seeder
     }
 }
 ```
-This will prevent to seed class SomeSeeder if was already seeded before. All other classes without SeederOnce.php will behave as usual.
+This will prevent to seed class SomeSeeder if was already seeded before. All other classes without trait SeederOnce.php will behave as usual.
