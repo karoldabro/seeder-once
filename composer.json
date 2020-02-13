@@ -3,7 +3,10 @@
 	"description": "Run your laravel seeders only once",
 	"type": "package",
 	"keywords": [
-		"php file"
+		"php",
+		"laravel",
+		"seeder",
+		"database"
 	],
 	"license": "MIT",
 	"authors": [
@@ -14,10 +17,10 @@
 		}
 	],
 	"require": {
-		"php": ">= 7.3",
-		"illuminate/console": "^5.7|^6.0|^7.0",
-		"illuminate/database": "^5.7|^6.0|^7.0",
-		"illuminate/support": "^5.7|^6.0|^7.0"
+		"php": ">= 7.1",
+		"illuminate/console": "^5.7|^6.0",
+		"illuminate/database": "^5.7|^6.0",
+		"illuminate/support": "^5.7|^6.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^8.5",
