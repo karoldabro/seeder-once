@@ -12,44 +12,39 @@ class SeederRepositoryTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        $this->repository = resolve(SeederOnceRepositoryInterface::class);
     }
 
     public function test_if_repository_implements_interface()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-
-        $this->assertInstanceOf(SeederOnceRepositoryInterface::class, $repository);
+        $this->assertInstanceOf(SeederOnceRepositoryInterface::class, $this->repository);
     }
 
     public function test_if_repository_creates_seeders_table()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-        $repository->createTable();
+        $this->repository->createTable();
 
         $this->assertTrue(Schema::hasTable(config('seederonce.table_name')));
     }
 
     public function test_if_check_of_existence_table_returns_true_when_table_exists()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-        $repository->createTable();
+        $this->repository->createTable();
 
-        $this->assertTrue($repository->existsTable());
+        $this->assertTrue($this->repository->existsTable());
     }
 
     public function test_if_check_of_existence_table_returns_false_when_table_not_exists()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-
-        $this->assertFalse($repository->existsTable());
+        $this->assertFalse($this->repository->existsTable());
     }
 
     public function test_if_add_method_adds_to_db()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-        $repository->createTable();
+        $this->repository->createTable();
 
-        $repository->add("seeder_name");
+        $this->repository->add("seeder_name");
 
         $this->assertDatabaseHas(config('seederonce.table_name'), [
             'id' => 1,
@@ -59,35 +54,37 @@ class SeederRepositoryTest extends TestCase
 
     public function test_if_all_returns_collection()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-        $repository->createTable();
+        $this->repository->createTable();
 
-        $this->assertInstanceOf(Collection::class, $repository->all());
+        $this->assertInstanceOf(Collection::class, $this->repository->all());
     }
 
     public function test_if_all_collection_is_empty_is_table_is_empty()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-        $repository->createTable();
+        $this->repository->createTable();
 
-        $this->assertTrue($repository->all()->isEmpty());
+        $this->assertTrue($this->repository->all()->isEmpty());
     }
 
     public function test_if_all_collection_has_all_data()
     {
-        $repository = resolve(SeederOnceRepositoryInterface::class);
-        $repository->createTable();
+        $this->repository->createTable();
 
-        $repository->add("seeder_name");
-        $repository->add("seeder_name_2");
-        $repository->add("seeder_name_3");
+        $this->repository->add("seeder_name");
+        $this->repository->add("seeder_name_2");
+        $this->repository->add("seeder_name_3");
 
-        $all = $repository->all();
+        $all = $this->repository->all();
 
         $this->assertEquals(3, $all->count());
 
         $this->assertTrue($all->contains("name", "=", "seeder_name"));
         $this->assertTrue($all->contains("name", "=", "seeder_name_2"));
         $this->assertTrue($all->contains("name", "=", "seeder_name_3"));
+    }
+
+    public function test_if_method_is_done_will_return_true_when_seed_is_in_db()
+    {
+        
     }
 }
