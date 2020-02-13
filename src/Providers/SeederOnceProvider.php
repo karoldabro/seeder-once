@@ -4,7 +4,6 @@ namespace Kdabrow\SeederOnce\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Kdabrow\SeederOnce\Commands\InstallCommand;
-use Kdabrow\SeederOnce\Commands\OnceCommand;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 use Kdabrow\SeederOnce\Repositories\SeederRepository;
 
@@ -12,10 +11,7 @@ class SeederOnceProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . \DIRECTORY_SEPARATOR . 'seederonce.php',
-            'seederonce'
-        );
+        $this->mergeConfigFrom($this->pathToConfig() . 'seederonce.php', 'seederonce');
 
         $this->app->singleton(
             SeederOnceRepositoryInterface::class,
@@ -30,8 +26,16 @@ class SeederOnceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 InstallCommand::class,
-                OnceCommand::class,
             ]);
         }
+
+        $this->publishes([
+            $this->pathToConfig() . 'seederonce.php' => config_path('seederonce.php'),
+        ], 'seederonce.config');
+    }
+
+    private function pathToConfig()
+    {
+        return __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;
     }
 }
