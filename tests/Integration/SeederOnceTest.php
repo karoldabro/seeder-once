@@ -2,6 +2,7 @@
 
 namespace Kdabrow\SeederOnce\Tests\Integration;
 
+use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 use Kdabrow\SeederOnce\Exceptions\SeederOnceException;
 use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMock;
 use Kdabrow\SeederOnce\Tests\TestCase;
@@ -15,5 +16,15 @@ class SeederOnceTest extends TestCase
         $mockClass = resolve(SeederUsingSeederOnceMock::class);
 
         $mockClass->__invoke();
+    }
+
+    public function test_if_seed_will_be_executed_when_table_exists()
+    {
+        $repository = resolve(SeederOnceRepositoryInterface::class);
+        $repository->createTable();
+
+        $mockClass = resolve(SeederUsingSeederOnceMock::class);
+
+        $this->assertNull($mockClass->__invoke());
     }
 }
