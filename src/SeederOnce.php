@@ -32,7 +32,7 @@ trait SeederOnce
         if ($repository->isDone($name)) {
 
             if (isset($this->command)) {
-                $this->command->getOutput()->writeln("<error>Seeder:</error> {$name} <error>was already seeded.</error>");
+                $this->command->getOutput()->writeln("<error>Seeder:</error> {$name} was already seeded.");
             }
 
             return null;
