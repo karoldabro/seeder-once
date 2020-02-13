@@ -6,14 +6,20 @@ Works similarly to migrations. First creates table in database, then logs all se
 
 ## How to use it
 
-### 1. create seeders table in database. 
+### 1. Install it. 
+By composer:
+```bash
+composer require kdabrow/seeder-once
+```
+
+### 2. Create seeders table in database. 
 Use this command:
 ``` bash
 php artisan db:intall
 ```
 If you will not do it, but use somewhere SeederOnce trait then SeederOnceException will be thrown.
 
-### 2.Add trait SeederOnce to seeds that you want to be run only once. 
+### 3. Add trait SeederOnce to seeders that you want to be run only once. 
 So result should look like this:
 ```php
 use Illuminate\Database\Seeder;
