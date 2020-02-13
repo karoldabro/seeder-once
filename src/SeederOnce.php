@@ -24,7 +24,7 @@ trait SeederOnce
         $repository = $this->resolveSeederOnceRepository();
 
         if (!$repository->existsTable()) {
-            throw new SeederOnceException("Table to log seeders do not exists. Please run command: php artisan db:install");
+            throw new SeederOnceException("Table to store logged seeders do not exists in your database. Please run command: php artisan db:install in order to create it.");
         }
 
         $name = get_class($this);
@@ -32,7 +32,7 @@ trait SeederOnce
         if ($repository->isDone($name)) {
 
             if (isset($this->command)) {
-                $this->command->getOutput()->writeln("<comment>Seeder:</comment> {$name} <comment>was seeded.</comment>");
+                $this->command->getOutput()->writeln("<error>Seeder:</error> {$name} <error>was already seeded.</error>");
             }
 
             return null;
