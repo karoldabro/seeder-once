@@ -2,6 +2,7 @@
 
 namespace Kdabrow\SeederOnce\Tests\Integration;
 
+use Illuminate\Support\Facades\Schema;
 use Kdabrow\SeederOnce\Tests\TestCase;
 use Kdabrow\SeederOnce\Exceptions\SeederOnceException;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
@@ -12,13 +13,13 @@ use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMockCallOthe
 
 class SeederOnceTest extends TestCase
 {
-    public function test_is_seeder_once_will_detect_lack_of_table_in_db_and_throw_exception()
+    public function test_is_seeder_once_will_detect_lack_of_table_in_db_and_create_one()
     {
-        $this->expectException(SeederOnceException::class);
-
         $mockClass = resolve(SeederUsingSeederOnceMock::class);
 
         $mockClass->__invoke();
+
+        $this->assertTrue(Schema::hasTable(config('seederonce.table_name')));
     }
 
     public function test_if_seed_will_be_executed_when_table_exists()

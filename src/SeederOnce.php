@@ -24,7 +24,7 @@ trait SeederOnce
         $repository = $this->resolveSeederOnceRepository();
 
         if (!$repository->existsTable()) {
-            throw new SeederOnceException("Table to store logged seeders do not exists in your database. Please run command: php artisan db:install in order to create it.");
+            $repository->createTable();
         }
 
         $name = get_class($this);
