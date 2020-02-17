@@ -4,7 +4,6 @@ namespace Kdabrow\SeederOnce\Tests\Integration;
 
 use Illuminate\Support\Facades\Schema;
 use Kdabrow\SeederOnce\Tests\TestCase;
-use Kdabrow\SeederOnce\Exceptions\SeederOnceException;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMock;
 use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederNotUsingSeederOnceMock;

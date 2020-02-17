@@ -4,7 +4,6 @@ namespace Kdabrow\SeederOnce;
 
 use InvalidArgumentException;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
-use Kdabrow\SeederOnce\Exceptions\SeederOnceException;
 
 trait SeederOnce
 {
