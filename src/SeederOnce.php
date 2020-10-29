@@ -14,7 +14,7 @@ trait SeederOnce
      *
      * @throws \InvalidArgumentException
      */
-    public function __invoke()
+    public function __invoke(array $parameters = [])
     {
         if (!method_exists($this, 'run')) {
             throw new InvalidArgumentException('Method [run] missing from ' . get_class($this));
@@ -38,8 +38,8 @@ trait SeederOnce
         }
 
         $return = isset($this->container)
-            ? $this->container->call([$this, 'run'])
-            : $this->run();
+            ? $this->container->call([$this, 'run'], $parameters)
+            : $this->run(...$parameters);
 
         $repository->add($name);
 
