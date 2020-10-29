@@ -16,7 +16,7 @@ composer require kdabrow/seeder-once
 ### 2. Create seeders table in database. 
 Use this command:
 ``` bash
-php artisan db:intall
+php artisan db:install
 ```
 If you will not do it, but use somewhere SeederOnce trait then SeederOnceException will be thrown.
 
