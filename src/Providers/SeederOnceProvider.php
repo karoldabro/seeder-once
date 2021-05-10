@@ -30,7 +30,7 @@ class SeederOnceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            $this->pathToConfig() . 'seederonce.php' => config_path('seederonce.php'),
+            $this->pathToConfig() . 'seederonce.php' => app()->configPath('seederonce.php'),
         ], 'seederonce.config');
     }
 
