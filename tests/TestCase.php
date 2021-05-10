@@ -4,30 +4,10 @@ namespace Kdabrow\SeederOnce\Tests;
 
 use Kdabrow\SeederOnce\Providers\SeederOnceProvider;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TestCase extends TestbenchTestCase
 {
-    /**
-     * Setup the test environment.
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate', ['--database' => 'testing']);
-    }
-
-    /**
-     * Define environment setup.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return void
-     */
-    protected function getEnvironmentSetUp($app)
-    {
-        $app['config']->set('database.default', 'testing');
-    }
-
     /**
      * Get package providers.  At a minimum this is the package being tested, but also
      * would include packages upon which our package depends, e.g. Cartalyst/Sentry
