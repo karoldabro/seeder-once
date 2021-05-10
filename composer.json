@@ -35,6 +35,7 @@
 			"Kdabrow\\SeederOnce\\Tests\\": "tests"
 		}
 	},
+	"prefer-stable": true,
 	"extra": {
 		"laravel": {
 			"providers": [

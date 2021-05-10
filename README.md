@@ -13,6 +13,11 @@ By composer:
 composer require kdabrow/seeder-once
 ```
 
+In Lumen do not forget to register provider in bootstrap/app.php
+```php
+$app->register(Kdabrow\SeederOnce\Providers\SeederOnceProvider::class);
+```
+
 ### 2. Create seeders table in database. 
 Use this command:
 ``` bash

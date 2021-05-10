@@ -48,6 +48,6 @@ trait SeederOnce
 
     private function resolveSeederOnceRepository(): SeederOnceRepositoryInterface
     {
-        return resolve(SeederOnceRepositoryInterface::class);
+        return app(SeederOnceRepositoryInterface::class);
     }
 }

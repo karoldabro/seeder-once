@@ -9,12 +9,9 @@
         convertWarningsToExceptions="true"
         processIsolation="false"
         stopOnFailure="false"
-        defaultTestSuite="Unit,Integration"
+        defaultTestSuite="Integration"
         >
     <testsuites>
-        <testsuite name="Unit">
-            <directory>./tests/Unit/</directory>
-        </testsuite>
         <testsuite name="Integration">
             <directory>./tests/Integration/</directory>
         </testsuite>
