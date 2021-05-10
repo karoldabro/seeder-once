@@ -6,3 +6,4 @@ storage/*
 .env
 Makefile
 .gitmodules
+composer.lock
