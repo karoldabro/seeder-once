@@ -7,3 +7,4 @@ storage/*
 Makefile
 .gitmodules
 composer.lock
+.idea
