@@ -1,6 +1,10 @@
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/karoldabro/seeder-once/tests/master)
-![Packagist Version](https://img.shields.io/packagist/v/kdabrow/seeder-once)
-![Packagist Downloads](https://img.shields.io/packagist/dm/kdabrow/seeder-once)
+<p align="center">
+<img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/karoldabro/seeder-once/tests/master">
+<img alt="Packagist Version" src="https://img.shields.io/packagist/v/kdabrow/seeder-once">
+<img alt="Packagist Downloads" src="https://img.shields.io/packagist/dm/kdabrow/seeder-once">
+<img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="https://img.shields.io/scrutinizer/quality/g/karoldabro/seeder-once/master">
+</p>
+
 # Laravel Seeder Once
 This library allows you to run your Laravel seeders only once. <br> No matter how many times artisan command `db:seed` is called. Done seeders will never be executed again.
 
