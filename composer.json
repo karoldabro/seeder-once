@@ -13,17 +13,17 @@
 		{
 			"name": "Karol Dąbrowski",
 			"email": "20278897+karoldabro@users.noreply.github.com",
-			"homepage": "http://kdabrow.com"
+			"homepage": "https://kdabrow.com"
 		}
 	],
 	"require": {
-		"php": ">= 7.3",
+		"php": ">=8.0.2",
 		"illuminate/console": "^9.21",
 		"illuminate/database": "^9.21",
 		"illuminate/support": "^9.21"
 	},
 	"require-dev": {
-		"orchestra/testbench": "^6.0|^7.0"
+		"orchestra/testbench": "^7.0"
 	},
 	"autoload": {
 		"psr-4": {

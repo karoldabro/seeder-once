@@ -15,6 +15,14 @@ By composer:
 composer require kdabrow/seeder-once
 ```
 
+#### Versions
+
+| php                | laravel / lumen | seeder-once |
+|--------------------|-----------------|-------------|
+| 7.2, 7.3, 7.4, 8.0 | 6.0, 7.0        | 1.2         |
+| 7.3, 7.4, 8.0      | 8.0, 9.0        | 2.2         |
+| 8.0, 8.1           | 9.21            | 3.0         |
+
 In Lumen do not forget to register provider in bootstrap/app.php
 ```php
 $app->register(Kdabrow\SeederOnce\Providers\SeederOnceProvider::class);

@@ -73,11 +73,9 @@ trait SeederOnce
             return false;
         }
 
-        $callback = function() use ($parameters) {
-            return isset($this->container)
-                ? $this->container->call([$this, 'run'], $parameters)
-                : $this->run(...$parameters);
-        };
+        $callback = fn () => isset($this->container)
+            ? $this->container->call([$this, 'run'], $parameters)
+            : $this->run(...$parameters);
 
         $repository->add($name);
 
