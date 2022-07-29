@@ -38,7 +38,7 @@ class SeederOnceTest extends TestCase
 
         $mockClass->__invoke();
 
-        $this->assertNull($mockClass->__invoke());
+        $this->assertFalse($mockClass->__invoke());
     }
 
     private function createTable()
@@ -72,7 +72,7 @@ class SeederOnceTest extends TestCase
 
         $this->assertTrue($mockClassWithCall->__invoke());
 
-        $this->assertNull($mockClassWithCall->__invoke());
+        $this->assertFalse($mockClassWithCall->__invoke());
     }
 
     public function test_if_internal_called_seeders_once_can_not_be_called_again()
@@ -85,7 +85,7 @@ class SeederOnceTest extends TestCase
 
         $mockClassWith = resolve(SeederUsingSeederOnceMock::class);
 
-        $this->assertNull($mockClassWith->__invoke());
+        $this->assertFalse($mockClassWith->__invoke());
     }
 
     public function test_if_internal_called_seeders_normal_can_be_called_again()
@@ -122,7 +122,7 @@ class SeederOnceTest extends TestCase
 
         $mockClassWith = resolve(SeederUsingSeederOnceMock::class);
 
-        $this->assertNull($mockClassWith->__invoke());
+        $this->assertFalse($mockClassWith->__invoke());
     }
 
     public function test_if_seeder_normal_can_call_seeder_normal_many_times()

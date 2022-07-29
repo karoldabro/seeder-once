@@ -2,11 +2,52 @@
 
 namespace Kdabrow\SeederOnce;
 
+use Illuminate\Console\View\Components\Task;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 
 trait SeederOnce
 {
+    /**
+     * Run the given seeder class.
+     *
+     * @param  array|string  $class
+     * @param  bool  $silent
+     * @param  array  $parameters
+     * @return $this
+     */
+    public function call($class, $silent = false, array $parameters = [])
+    {
+        $classes = Arr::wrap($class);
+
+        foreach ($classes as $class) {
+            $seeder = $this->resolve($class);
+
+            $name = get_class($seeder);
+
+            if ($silent || ! isset($this->command)) {
+                $seeder->__invoke($parameters);
+            } else {
+                $result = $seeder->__invoke($parameters);
+
+                if ($result === false) {
+                    $name = $name . " was already seeded";
+                }
+
+                with(new Task($this->command->getOutput()))->render(
+                    $name,
+                    $result,
+                );
+            }
+
+            static::$called[] = $class;
+        }
+
+        return $this;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -29,21 +70,24 @@ trait SeederOnce
         $name = get_class($this);
 
         if ($repository->isDone($name)) {
-
-            if (isset($this->command)) {
-                $this->command->getOutput()->writeln("<error>Seeder:</error> {$name} was already seeded.");
-            }
-
-            return null;
+            return false;
         }
 
-        $return = isset($this->container)
-            ? $this->container->call([$this, 'run'], $parameters)
-            : $this->run(...$parameters);
+        $callback = function() use ($parameters) {
+            return isset($this->container)
+                ? $this->container->call([$this, 'run'], $parameters)
+                : $this->run(...$parameters);
+        };
 
         $repository->add($name);
 
-        return $return;
+        $uses = array_flip(class_uses_recursive(static::class));
+
+        if (isset($uses[WithoutModelEvents::class])) {
+            $callback = $this->withoutModelEvents($callback);
+        }
+
+        return $callback();
     }
 
     private function resolveSeederOnceRepository(): SeederOnceRepositoryInterface
