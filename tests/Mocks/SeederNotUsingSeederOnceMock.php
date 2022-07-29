@@ -1,6 +1,6 @@
 <?php
 
-namespace Kdabrow\SeederOnce\Tests\Integration\Mocks;
+namespace Kdabrow\SeederOnce\Tests\Mocks;
 
 use Illuminate\Database\Seeder;
 

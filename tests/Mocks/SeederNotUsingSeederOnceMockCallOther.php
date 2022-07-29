@@ -1,14 +1,11 @@
 <?php
 
-namespace Kdabrow\SeederOnce\Tests\Integration\Mocks;
+namespace Kdabrow\SeederOnce\Tests\Mocks;
 
 use Illuminate\Database\Seeder;
-use Kdabrow\SeederOnce\SeederOnce;
 
-class SeederUsingSeederOnceMockCallOther extends Seeder
+class SeederNotUsingSeederOnceMockCallOther extends Seeder
 {
-    use SeederOnce;
-
     public function run()
     {
         $this->call(SeederUsingSeederOnceMock::class);
