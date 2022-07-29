@@ -1,6 +1,6 @@
 <?php
 
-namespace Kdabrow\SeederOnce\Tests\Integration\Repositories;
+namespace Kdabrow\SeederOnce\Tests\Repositories;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;

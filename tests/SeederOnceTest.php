@@ -1,14 +1,14 @@
 <?php
 
-namespace Kdabrow\SeederOnce\Tests\Integration;
+namespace Kdabrow\SeederOnce\Tests;
 
 use Illuminate\Support\Facades\Schema;
-use Kdabrow\SeederOnce\Tests\TestCase;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
-use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMock;
-use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederNotUsingSeederOnceMock;
-use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederNotUsingSeederOnceMockCallOther;
-use Kdabrow\SeederOnce\Tests\Integration\Mocks\SeederUsingSeederOnceMockCallOther;
+use Kdabrow\SeederOnce\Tests\Mocks\SeederNotUsingSeederOnceMock;
+use Kdabrow\SeederOnce\Tests\Mocks\SeederNotUsingSeederOnceMockCallOther;
+use Kdabrow\SeederOnce\Tests\Mocks\SeederUsingSeederOnceMock;
+use Kdabrow\SeederOnce\Tests\Mocks\SeederUsingSeederOnceMockCallOther;
+use Kdabrow\SeederOnce\Tests\Mocks\SeederUsingSeederOnceMockWithDefaultFunc;
 
 class SeederOnceTest extends TestCase
 {
@@ -136,5 +136,16 @@ class SeederOnceTest extends TestCase
         $mockClassWithout = resolve(SeederNotUsingSeederOnceMock::class);
 
         $this->assertTrue($mockClassWithout->__invoke());
+    }
+
+    public function test_if_seeder_with_overwritten_param_seedOnce_will_be_called_many_times()
+    {
+        $this->createTable();
+
+        $mockClassWithoutCall = resolve(SeederUsingSeederOnceMockWithDefaultFunc::class);
+
+        $this->assertTrue($mockClassWithoutCall->__invoke());
+
+        $this->assertTrue($mockClassWithoutCall->__invoke());
     }
 }

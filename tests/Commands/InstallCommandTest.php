@@ -1,6 +1,6 @@
 <?php
 
-namespace Kdabrow\SeederOnce\Tests\Integration\Commands;
+namespace Kdabrow\SeederOnce\Tests\Commands;
 
 use Illuminate\Support\Facades\Schema;
 use Kdabrow\SeederOnce\Tests\TestCase;

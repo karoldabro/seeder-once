@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Config;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 
 /**
- * I didn't wrote all this class.
+ * I didn't write all this class.
  * Some parts of this class are taken from Illuminate\Database\Migrations\DatabaseMigrationRepository
  */
 class SeederRepository implements SeederOnceRepositoryInterface

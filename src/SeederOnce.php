@@ -4,12 +4,16 @@ namespace Kdabrow\SeederOnce;
 
 use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 
-trait SeederOnce
+abstract class SeederOnce extends Seeder
 {
+    public bool $seedOnce = true;
+
     /**
      * Run the given seeder class.
      *
@@ -32,20 +36,27 @@ trait SeederOnce
             } else {
                 $result = $seeder->__invoke($parameters);
 
-                if ($result === false) {
-                    $name = $name . " was already seeded";
+                if (Config::get('seederonce.print_already_seeded') || $result !== false) {
+                    $this->printResult($name, $result);
                 }
-
-                with(new Task($this->command->getOutput()))->render(
-                    $name,
-                    $result,
-                );
             }
 
             static::$called[] = $class;
         }
 
         return $this;
+    }
+
+    private function printResult($name, $result)
+    {
+        if ($result === false) {
+            $name = $name . " already seeded";
+        }
+
+        with(new Task($this->command->getOutput()))->render(
+            $name,
+            $result,
+        );
     }
 
     /**
@@ -69,7 +80,7 @@ trait SeederOnce
 
         $name = get_class($this);
 
-        if ($repository->isDone($name)) {
+        if ($repository->isDone($name) && $this->seedOnce) {
             return false;
         }
 
@@ -77,7 +88,9 @@ trait SeederOnce
             ? $this->container->call([$this, 'run'], $parameters)
             : $this->run(...$parameters);
 
-        $repository->add($name);
+        if ($this->seedOnce) {
+            $repository->add($name);
+        }
 
         $uses = array_flip(class_uses_recursive(static::class));
 

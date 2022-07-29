@@ -1,6 +1,6 @@
 <?php
 
-namespace Kdabrow\SeederOnce\Tests\Integration\Repositories;
+namespace Kdabrow\SeederOnce\Tests\Repositories;
 
 use Kdabrow\SeederOnce\Contracts\SeederOnceRepositoryInterface;
 use Kdabrow\SeederOnce\Repositories\SeederRepository;
