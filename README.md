@@ -5,7 +5,7 @@
 This library allows you to run your Laravel seeders only once. <br> No matter how many times artisan command `db:seed` is called. Done seeders will never be executed again.
 
 ## How it works
-Works similarly to migrations. First creates table in database, then logs all seeds that extend abstract class `Kdabrow\SeederOnce\SeederOnce`. In nutshell this will prevent to execute method run() if was executed in the past. <br> Mechanism of logging data into database is heavily inspired by Laravel migration mechanism from package illuminate/database.  
+Works similarly to migrations. First creates table in database, then logs all seeds that extend abstract class `Kdabrow\SeederOnce\SeederOnce`. In nutshell this will prevent to execute method run() if was executed in the past. Mechanism of logging data into database is heavily inspired by Laravel migration mechanism from package illuminate/database.
 
 ## How to use it
 
@@ -29,7 +29,7 @@ Use this command:
 ``` bash
 php artisan db:install
 ```
-This step is optional. Trait SeederOnce will detect if such table exists. If not creates it automatically.
+This step is optional. Trait SeederOnce detects if table exists. If not, creates it automatically.
 
 ### 3. Extend seeders that you want to be run only once with SeederOnce
 
@@ -51,7 +51,7 @@ class SomeSeeder extends SeederOnce
 }
 ```
 This prevents to seed class SomeSeeder if was already seeded before.  
-**Tip**: Always replace class Seeder with SeederOnce. Otherwise, db:seed command might print unexpected results.
+**Tip**: Always replace class Seeder with SeederOnce. Otherwise, `db:seed` command might print unexpected results.
 
 ## Configuration
 
@@ -86,7 +86,7 @@ php artisan vendor:publish --tag=seederonce.config
 Default table name is: seeders
 
 #### Console output
-By default, seeder-once changes output from db:seed console command. Seeders that were run in the past will not be printed in the command output. It's possible to change that behaviour in configuration or by env variable:
+By default, seeder-once changes output of db:seed console command. Seeders that were run in the past will not be printed in the command output. It's possible to change that behaviour in configuration or by env variable:
 ```shell
 SEEDER_ONCE_PRINT_OUTPUT=true
 ```
@@ -98,5 +98,5 @@ Database\Seeders\SomeSeeder was already seeded ..................... DONE
 ## Other
 
 ### IMPORTANT NOTE ABOUT PREVIOUS VERSIONS
-In previous versions SeederOnce was a trait. Because Laravel console output changed in version 9.21 I changed trait into abstract class. 
+In previous versions SeederOnce was a trait. Because Laravel console output changed in version 9.21 I was forced to change trait into abstract class. 
 **If you want to keep using trait use seeder-once version 2.2. Only problem is that output from command db:seed is quite messy.**
