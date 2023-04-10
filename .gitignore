@@ -8,3 +8,4 @@ Makefile
 .gitmodules
 composer.lock
 .idea
+.phpunit.cache
