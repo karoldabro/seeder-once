@@ -1,5 +1,5 @@
 <p align="center">
-<img alt="GitHub Workflow Status (branch)" src="https://img.shields.io/github/workflow/status/karoldabro/seeder-once/tests/master">
+<img alt="GitHub Workflow Status (branch)" src="https://github.com/karoldabro/seeder-once/actions/workflows/laravel.yml/badge.svg">
 <img alt="Packagist Version" src="https://img.shields.io/packagist/v/kdabrow/seeder-once">
 <img alt="Packagist Downloads" src="https://img.shields.io/packagist/dm/kdabrow/seeder-once">
 <img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="https://img.shields.io/scrutinizer/quality/g/karoldabro/seeder-once/master">
