@@ -19,7 +19,7 @@ By composer:
 
 | php                | laravel / lumen | seeder-once                                        |
 |--------------------|-----------------|----------------------------------------------------|
-| 8.1, 8.2           | 10.0            | ```composer require "kdabrow/seeder-once: ^4.0"``` |
+| 8.1, 8.2, 8.3      | 10.0, 11.0      | ```composer require "kdabrow/seeder-once: ^4.0"``` |
 | 8.0, 8.1           | 9.21            | ```composer require "kdabrow/seeder-once: ^3.0"``` |
 | 7.3, 7.4, 8.0      | 8.0, 9.0        | ```composer require "kdabrow/seeder-once: ^2.2"``` |
 | 7.2, 7.3, 7.4, 8.0 | 6.0, 7.0        | ```composer require "kdabrow/seeder-once: ^1.2"``` |
