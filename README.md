@@ -19,6 +19,7 @@ By composer:
 
 | php                | laravel / lumen | seeder-once                                        |
 |--------------------|-----------------|----------------------------------------------------|
+| 8.2, 8.3, 8.4      | 12.0            | ```composer require "kdabrow/seeder-once: ^6.0"``` |
 | 8.2, 8.3           | 10.0, 11.0      | ```composer require "kdabrow/seeder-once: ^5.0"``` |
 | 8.1, 8.2           | 10.0            | ```composer require "kdabrow/seeder-once: ^4.0"``` |
 | 8.0, 8.1           | 9.21            | ```composer require "kdabrow/seeder-once: ^3.0"``` |
@@ -100,9 +101,3 @@ Output for already run seeders looks like this:
 ```shell
 Database\Seeders\SomeSeeder was already seeded ..................... DONE
 ```
-
-## Other
-
-### IMPORTANT NOTE ABOUT PREVIOUS VERSIONS
-In previous versions SeederOnce was a trait. Because Laravel console output changed in version 9.21 I was forced to change trait into abstract class. 
-**If you want to keep using trait use seeder-once version 2.2. Only problem is that output from command db:seed is quite messy.**
