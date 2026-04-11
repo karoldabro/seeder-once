@@ -17,10 +17,12 @@ Works similarly to migrations. First creates table in database, then logs all se
 
 By composer:
 
-| php                | laravel / lumen | seeder-once                                        |
-|--------------------|-----------------|----------------------------------------------------|
-| 8.2, 8.3, 8.4      | 12.0            | ```composer require "kdabrow/seeder-once: ^6.0"``` |
-| 8.2, 8.3           | 10.0, 11.0      | ```composer require "kdabrow/seeder-once: ^5.0"``` |
+| php                | laravel / lumen  | seeder-once                                        |
+|--------------------|------------------|----------------------------------------------------|
+| 8.3, 8.4           | 13.0             | ```composer require "kdabrow/seeder-once: ^6.1"``` |
+| 8.2, 8.3, 8.4      | 10.0, 11.0, 12.0 | ```composer require "kdabrow/seeder-once: ^6.1"``` |
+| 8.2, 8.3, 8.4      | 12.0             | ```composer require "kdabrow/seeder-once: ^6.0"``` |
+| 8.2, 8.3           | 10.0, 11.0       | ```composer require "kdabrow/seeder-once: ^5.0"``` |
 | 8.1, 8.2           | 10.0            | ```composer require "kdabrow/seeder-once: ^4.0"``` |
 | 8.0, 8.1           | 9.21            | ```composer require "kdabrow/seeder-once: ^3.0"``` |
 | 7.3, 7.4, 8.0      | 8.0, 9.0        | ```composer require "kdabrow/seeder-once: ^2.2"``` |

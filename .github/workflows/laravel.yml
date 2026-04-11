@@ -7,63 +7,41 @@ on:
     branches: [ "master" ]
 
 jobs:
-  tests84:
-
+  tests:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+        laravel: ['11.*', '12.*', '13.*']
+        exclude:
+          - php: '8.2'
+            laravel: '13.*'
+
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
+
     steps:
+      - uses: actions/checkout@v4
+
       - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
         with:
-          php-version: '8.4'
-      - uses: actions/checkout@v3
+          php-version: ${{ matrix.php }}
+
       - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: |
+          composer require \
+            "illuminate/console:${{ matrix.laravel }}" \
+            "illuminate/database:${{ matrix.laravel }}" \
+            "illuminate/support:${{ matrix.laravel }}" \
+            --no-update --no-interaction
+          composer update --prefer-dist --no-interaction --no-progress
+
       - name: Create Database
         run: |
           mkdir -p database
           touch database/database.sqlite
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        env:
-          DB_CONNECTION: testing
-          DB_DATABASE: database/database.sqlite
-        run: vendor/bin/phpunit
 
-  tests83:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: '8.3'
-      - uses: actions/checkout@v3
-      - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      - name: Create Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        env:
-          DB_CONNECTION: testing
-          DB_DATABASE: database/database.sqlite
-        run: vendor/bin/phpunit
-
-  tests82:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-        with:
-          php-version: '8.2'
-      - uses: actions/checkout@v3
-      - name: Install Dependencies
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-      - name: Create Database
-        run: |
-          mkdir -p database
-          touch database/database.sqlite
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: testing
