@@ -8,6 +8,8 @@
 # Laravel Seeder Once
 This library allows you to run your Laravel seeders only once. <br> No matter how many times artisan command `db:seed` is called. Done seeders will never be executed again.
 
+Sponsored by [Givore](https://givore.com) and [Mistflare](https://mistflare.studio)
+
 ## How it works
 Works similarly to migrations. First creates table in database, then logs all seeds that extend abstract class `Kdabrow\SeederOnce\SeederOnce`. In nutshell this will prevent to execute method run() if was executed in the past. Mechanism of logging data into database is heavily inspired by Laravel migration mechanism from package illuminate/database.
 
